@@ -22,7 +22,7 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { PingResolver } from "./resolvers/ping";
 // import { ProductResolver } from "./resolvers/ProductResolver";
 
@@ -32,6 +32,7 @@ export async function startServer() {
       resolvers: [PingResolver],
       validate: false,
     }),
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     context: ({ req, res }) => ({ req, res }),
   });
 
