@@ -9,7 +9,7 @@ export const connect = async () => {
     username: "root",
     password: "1234",
     database: "test",
-    entities: [],
+    entities: [path.join(__dirname, "../entity/**/**.ts")],
     logging: true,
     synchronize: true,
   });
