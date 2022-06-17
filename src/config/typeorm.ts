@@ -12,8 +12,8 @@ export const connect = async () => {
     username: "root",
     password: "1234",
     database: "test",
-    entities: [Monster, Task, Book],
-    // entities: [path.join(__dirname, "../entity/**/**.ts")],
+    // entities: [Monster, Task, Book],
+    entities: [path.join(__dirname, "../entity/**/**.ts")],
     logging: true,
     synchronize: true,
   });

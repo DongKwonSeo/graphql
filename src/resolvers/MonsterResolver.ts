@@ -12,6 +12,9 @@ import { Task } from "../entity/Task";
 
 @InputType()
 export class InputMonster {
+  @Field(() => Int)
+  user_id: number;
+
   @Field()
   name: string;
 
@@ -32,6 +35,7 @@ class InputTask {
 export class MonsterResolver {
   @Query(() => [Monster])
   async getMonsterList() {
+    
     return Monster.find();
   }
 

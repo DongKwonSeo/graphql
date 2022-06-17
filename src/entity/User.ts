@@ -1,34 +1,28 @@
-import { User } from "./User";
+import { Monster } from "./Monster";
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import {
   BaseEntity,
   Column,
   Entity,
-  ManyToOne,
-  PrimaryColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
 @Entity()
 @ObjectType()
-//
-export class Monster extends BaseEntity {
+export class User extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
-  @Field(() => Int)
   id: number;
 
-  @Field()
+  @Field(() => String)
   @Column()
   name: string;
 
   @Field(() => Int)
   @Column("int")
-  level: number;
+  age: number;
 
-  @Field(() => Int)
-  @Column("int")
-  user_id: number;
-
-  @ManyToOne(() => User, (user) => user.monsters)
-  user: User;
+  @OneToMany(() => Monster, (Monster) => Monster.user)
+  monsters: Monster[];
 }
