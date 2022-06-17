@@ -25,12 +25,13 @@ import { buildSchema } from "type-graphql";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { PingResolver } from "./resolvers/ping";
 import { MonsterResolver } from "./resolvers/MonsterResolver";
+import { BookResolver } from "./resolvers/bookResolver";
 // import { ProductResolver } from "./resolvers/ProductResolver";
 
 export async function startServer() {
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PingResolver, MonsterResolver],
+      resolvers: [PingResolver, MonsterResolver, BookResolver],
       validate: false,
     }),
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
