@@ -24,12 +24,13 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { PingResolver } from "./resolvers/ping";
+import { MonsterResolver } from "./resolvers/MonsterResolver";
 // import { ProductResolver } from "./resolvers/ProductResolver";
 
 export async function startServer() {
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PingResolver],
+      resolvers: [PingResolver, MonsterResolver],
       validate: false,
     }),
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],

@@ -1,5 +1,7 @@
 import { createConnection } from "typeorm";
 import path from "path";
+import { Monster } from "../entity/Monster";
+import { Task } from "./../entity/Task";
 
 export const connect = async () => {
   await createConnection({
@@ -9,7 +11,8 @@ export const connect = async () => {
     username: "root",
     password: "1234",
     database: "test",
-    entities: [path.join(__dirname, "../entity/**/**.ts")],
+    entities: [Monster, Task],
+    // entities: [path.join(__dirname, "../entity/**/**.ts")],
     logging: true,
     synchronize: true,
   });
