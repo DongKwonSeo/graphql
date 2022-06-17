@@ -26,6 +26,7 @@ export class BookResolver {
   async updateBook(@Arg("id") id: string, @Arg("data") data: UpdateBookInput) {
     const book = await Book.findOne({ where: { id } });
     if (!book) throw new Error("Book not found!");
+    // 삭제
     Object.assign(book, data);
     await book.save();
     return book;
