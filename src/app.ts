@@ -22,11 +22,15 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import {
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginInlineTrace,
+} from "apollo-server-core";
 import { PingResolver } from "./resolvers/ping";
 import { MonsterResolver } from "./resolvers/MonsterResolver";
 import { BookResolver } from "./resolvers/bookResolver";
 import { UserResolver } from "./resolvers/userResolver";
+import { ApolloContext } from "./context/ApolloContext";
 // import { ProductResolver } from "./resolvers/ProductResolver";
 
 export async function startServer() {
@@ -35,8 +39,11 @@ export async function startServer() {
       resolvers: [PingResolver, MonsterResolver, BookResolver, UserResolver],
       validate: false,
     }),
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-    context: ({ req, res }) => ({ req, res }),
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground,
+      ApolloServerPluginInlineTrace,
+    ],
+    context: ApolloContext,
   });
 
   await server.start();
