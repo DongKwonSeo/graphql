@@ -35,6 +35,10 @@ class InputTask {
 export class MonsterResolver {
   @Query(() => [Monster])
   async getMonsterList() {
+    return Monster.find();
+  }
+  @Query(() => [Monster])
+  async getUserMonster() {
     
     return Monster.find();
   }
