@@ -31,19 +31,22 @@ import { MonsterResolver } from "./resolvers/MonsterResolver";
 import { BookResolver } from "./resolvers/bookResolver";
 import { UserResolver } from "./resolvers/userResolver";
 import { ApolloContext } from "./context/ApolloContext";
+import { ApolloAuthChecker } from "./context/AuthChecker";
 // import { ProductResolver } from "./resolvers/ProductResolver";
 
 export async function startServer() {
   const server = new ApolloServer({
+    context: ApolloContext,
     schema: await buildSchema({
       resolvers: [PingResolver, MonsterResolver, BookResolver, UserResolver],
       validate: false,
+      authChecker: ApolloAuthChecker,
+      // authMode: "null",
     }),
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground,
-      ApolloServerPluginInlineTrace,
+      // ApolloServerPluginInlineTrace,
     ],
-    context: ApolloContext,
   });
 
   await server.start();

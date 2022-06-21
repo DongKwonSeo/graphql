@@ -39,7 +39,6 @@ export class MonsterResolver {
   }
   @Query(() => [Monster])
   async getUserMonster() {
-    
     return Monster.find();
   }
 

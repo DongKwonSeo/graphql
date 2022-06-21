@@ -28,18 +28,21 @@ const MonsterResolver_1 = require("./resolvers/MonsterResolver");
 const bookResolver_1 = require("./resolvers/bookResolver");
 const userResolver_1 = require("./resolvers/userResolver");
 const ApolloContext_1 = require("./context/ApolloContext");
+const AuthChecker_1 = require("./context/AuthChecker");
 // import { ProductResolver } from "./resolvers/ProductResolver";
 async function startServer() {
     const server = new apollo_server_express_1.ApolloServer({
+        context: ApolloContext_1.ApolloContext,
         schema: await (0, type_graphql_1.buildSchema)({
             resolvers: [ping_1.PingResolver, MonsterResolver_1.MonsterResolver, bookResolver_1.BookResolver, userResolver_1.UserResolver],
             validate: false,
+            authChecker: AuthChecker_1.ApolloAuthChecker,
+            // authMode: "null",
         }),
         plugins: [
             apollo_server_core_1.ApolloServerPluginLandingPageGraphQLPlayground,
-            apollo_server_core_1.ApolloServerPluginInlineTrace,
+            // ApolloServerPluginInlineTrace,
         ],
-        context: ApolloContext_1.ApolloContext,
     });
     await server.start();
     const app = (0, express_1.default)();

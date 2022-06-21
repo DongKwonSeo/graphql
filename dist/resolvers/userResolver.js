@@ -20,23 +20,36 @@ let UserResolver = class UserResolver {
     userList() {
         return User_1.User.find();
     }
-    userId(id, apolloContext) {
+    async userId(id, apolloContext) {
         console.log(apolloContext, "apolloContext");
-        return User_1.User.findOne({ where: { id } });
+        const user = await User_1.User.findOne({ where: { id } });
+        return user;
     }
     async createUser(inputs) {
         console.log(inputs, "유저정보");
         const userInfor = await User_1.User.create(inputs).save();
         return userInfor;
     }
+    async signIn(id, apolloContext) {
+        const user = await User_1.User.findOne({ where: { id } });
+        const userInfor = {
+            name: user?.name,
+            id: user?.id,
+            age: user?.age,
+        };
+        const token = await apolloContext.jwt.sign(userInfor, apolloContext.JWT_SECRET_KEY);
+        return token;
+    }
 };
 __decorate([
+    (0, type_graphql_1.Authorized)(),
     (0, type_graphql_1.Query)(() => [User_1.User]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserResolver.prototype, "userList", null);
 __decorate([
+    (0, type_graphql_1.Authorized)(),
     (0, type_graphql_1.Query)(() => User_1.User),
     __param(0, (0, type_graphql_1.Arg)("id")),
     __param(1, (0, type_graphql_1.Ctx)()),
@@ -51,6 +64,14 @@ __decorate([
     __metadata("design:paramtypes", [UserInput_1.UserInput]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "createUser", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => String, { nullable: true, description: "Find One User" }),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __param(1, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "signIn", null);
 UserResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], UserResolver);
