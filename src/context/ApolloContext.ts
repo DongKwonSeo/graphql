@@ -45,7 +45,7 @@ import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
 import { User } from "../entity/User";
 dotenv.config();
-const JWT_SECRET_KEY = "testkey";
+const JWT_SECRET_KEY = "F2dN7x8HVzBWaQuEEDnhsvHXRWqAR63z";
 export const ApolloContext = async ({
   req,
 }: any): Promise<ApolloContextInterface> => {
